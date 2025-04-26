@@ -3,7 +3,7 @@ import "@spectrum-web-components/theme/express/theme-light.js";
 
 import { Button } from "@swc-react/button";
 import { Theme } from "@swc-react/theme";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 const App = ({ addOnUISdk, sandboxProxy }) => {
@@ -24,8 +24,9 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
   const FancyDropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState("Select an option");
+    const dropdownRef = useRef(null);
 
-    const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+    const options = ["GenZ", "Gamers", "Executive", "Parents", "Students"];
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -34,8 +35,21 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
       setIsOpen(false);
     };
 
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    useEffect(() => {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
     return (
-      <div className="dropdown-container">
+      <div className="dropdown-container" ref={dropdownRef}>
         <div>
           <button onClick={toggleDropdown} className="dropdown-button">
             {selectedOption}
@@ -83,23 +97,26 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
           Make every word count — for every audience.
         </p>
 
-        {/* clean textarea */}
-        <textarea
-          className="textarea"
-          placeholder="Paste or write your paragraph here…"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        {/* resizable textarea */}
+        <div className="textarea-container">
+          <textarea
+            className="textarea"
+            placeholder="What is on your mind today..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </div>
+
+        {/* dropdown container */}
+        <div id="DropdownContainer">
+          <h2>Select Your Audience</h2>
+          <FancyDropdown />
+        </div>
 
         {/* action button */}
         <Button size="m" onClick={handleClick} className="action-button">
-          Create Rectangle
+          Submit
         </Button>
-      </div>
-
-      <div id="DropdownContainer">
-        <h2>Select Your Audience</h2>
-        <FancyDropdown />
       </div>
     </Theme>
   );

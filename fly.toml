@@ -1,0 +1,18 @@
+app = "targettalk"
+primary_region = "lax"
+build = { }
+
+[http_service]
+auto_start_machines = true
+auto_stop_machines = true
+force_https = true
+internal_port = 8000
+min_machines_running = 0
+
+[[vm]]
+cpu_kind = "shared"
+cpus = 1
+memory = "1gb"
+
+[env]
+  PROJECT_NAME = "TargetTalkBackend"

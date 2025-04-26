@@ -30,7 +30,7 @@ try:
             print(f"- {m.name}")
     
     # Initialize the model
-    model = genai.GenerativeModel('gemini-1.5-pro-001')
+    model = genai.GenerativeModel('gemini-2.5-pro-preview-03-25')
     print("\nModel initialized successfully!")
 except Exception as e:
     print(f"\nError during setup: {str(e)}")

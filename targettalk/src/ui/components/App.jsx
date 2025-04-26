@@ -21,7 +21,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
         <Theme system="express" scale="medium" color="light">
             <div className="container">
                 <Button size="m" onClick={handleClick}>
-                    Create Rectangle
+                    Create
                 </Button>
             </div>
         </Theme>

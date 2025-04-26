@@ -2,19 +2,17 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 
-# Debug information
-print("Current directory:", os.getcwd())
-print("Files in directory:", os.listdir())
+
 
 # Load environment variables
 load_dotenv()
 
 # Configure the Gemini API
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-print(f"API Key found: {'Yes' if GEMINI_API_KEY else 'No'}")
-if GEMINI_API_KEY:
-    print(f"API Key length: {len(GEMINI_API_KEY)}")
-    print(f"API Key starts with: {GEMINI_API_KEY[:6]}...")
+# print(f"API Key found: {'Yes' if GEMINI_API_KEY else 'No'}")
+# if GEMINI_API_KEY:
+#     print(f"API Key length: {len(GEMINI_API_KEY)}")
+#     print(f"API Key starts with: {GEMINI_API_KEY[:6]}...")
 
 if not GEMINI_API_KEY:
     raise ValueError("Please set GEMINI_API_KEY in your .env file")
@@ -31,14 +29,14 @@ def load_system_prompt():
 try:
     genai.configure(api_key=GEMINI_API_KEY)
     # List available models
-    print("\nAvailable models:")
-    for m in genai.list_models():
-        if "generateContent" in m.supported_generation_methods:
-            print(f"- {m.name}")
+    # print("\nAvailable models:")
+    # for m in genai.list_models():
+    #     if "generateContent" in m.supported_generation_methods:
+    #         print(f"- {m.name}")
     
     # Initialize the model
     model = genai.GenerativeModel('gemini-2.5-pro-preview-03-25')
-    print("\nModel initialized successfully!")
+    # print("\nModel initialized successfully!")
 except Exception as e:
     print(f"\nError during setup: {str(e)}")
     exit(1)

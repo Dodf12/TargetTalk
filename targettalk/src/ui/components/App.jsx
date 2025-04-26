@@ -1,5 +1,4 @@
-// To support: system="express" scale="medium" color="light"
-// import these spectrum web components modules:
+
 import "@spectrum-web-components/theme/express/scale-medium.js";
 import "@spectrum-web-components/theme/express/theme-light.js";
 

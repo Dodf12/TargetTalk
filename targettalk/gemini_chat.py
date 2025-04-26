@@ -19,14 +19,21 @@ if GEMINI_API_KEY:
 if not GEMINI_API_KEY:
     raise ValueError("Please set GEMINI_API_KEY in your .env file")
 
+# Load system prompt from file
+def load_system_prompt():
+    try:
+        with open('prompts.txt', 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        print("Warning: prompts.txt not found. Using default behavior.")
+        return ""
+
 try:
     genai.configure(api_key=GEMINI_API_KEY)
     # List available models
     print("\nAvailable models:")
     for m in genai.list_models():
         if "generateContent" in m.supported_generation_methods:
-
-
             print(f"- {m.name}")
     
     # Initialize the model
@@ -41,7 +48,9 @@ def chat_with_gemini(prompt):
     Send a prompt to Gemini and get the response
     """
     try:
-        response = model.generate_content(prompt)
+        system_prompt = load_system_prompt()
+        full_prompt = f"{system_prompt}\n\nUser: {prompt}"
+        response = model.generate_content(full_prompt)
         return response.text
     except Exception as e:
         return f"An error occurred: {str(e)}"

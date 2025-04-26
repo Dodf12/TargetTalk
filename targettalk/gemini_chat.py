@@ -1,0 +1,69 @@
+import os
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+
+
+# Load environment variables
+load_dotenv()
+
+# Configure the Gemini API
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+# print(f"API Key found: {'Yes' if GEMINI_API_KEY else 'No'}")
+# if GEMINI_API_KEY:
+#     print(f"API Key length: {len(GEMINI_API_KEY)}")
+#     print(f"API Key starts with: {GEMINI_API_KEY[:6]}...")
+
+if not GEMINI_API_KEY:
+    raise ValueError("Please set GEMINI_API_KEY in your .env file")
+
+# Load system prompt from file
+def load_system_prompt():
+    try:
+        with open('prompts.txt', 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        print("Warning: prompts.txt not found. Using default behavior.")
+        return ""
+
+try:
+    genai.configure(api_key=GEMINI_API_KEY)
+    # List available models
+    # print("\nAvailable models:")
+    # for m in genai.list_models():
+    #     if "generateContent" in m.supported_generation_methods:
+    #         print(f"- {m.name}")
+    
+    # Initialize the model
+    model = genai.GenerativeModel('gemini-2.5-pro-preview-03-25')
+    # print("\nModel initialized successfully!")
+except Exception as e:
+    print(f"\nError during setup: {str(e)}")
+    exit(1)
+
+def chat_with_gemini(prompt):
+    """
+    Send a prompt to Gemini and get the response
+    """
+    try:
+        system_prompt = load_system_prompt()
+        full_prompt = f"{system_prompt}\n\nUser: {prompt}"
+        response = model.generate_content(full_prompt)
+        return response.text
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
+
+def main():
+    print("\nWelcome to Gemini Chat!")
+    print("Type 'quit' to exit")
+    
+    while True:
+        user_input = input("\nYou: ")
+        if user_input.lower() == 'quit':
+            break
+            
+        response = chat_with_gemini(user_input)
+        print("\nGemini:", response)
+
+if __name__ == "__main__":
+    main()

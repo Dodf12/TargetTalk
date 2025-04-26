@@ -13,3 +13,6 @@ min_machines_running = 0
 cpu_kind = "shared"
 cpus = 1
 memory = "1gb"
+
+[env]
+  PROJECT_NAME = "TargetTalkBackend"

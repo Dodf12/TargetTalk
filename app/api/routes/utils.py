@@ -6,7 +6,3 @@ router = APIRouter(prefix="/utils", tags=["utils"])
 @router.get("/health-check/", response_model=bool)
 async def health_check() -> bool:
     return True
-
-@router.get("/test", response_model=bool)
-async def test() -> bool:
-    return True

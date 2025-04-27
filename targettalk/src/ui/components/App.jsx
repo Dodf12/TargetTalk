@@ -38,10 +38,10 @@ const FancyDropdown = ({ onOptionSelect }) => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    onOptionSelect(option);            // Notify parent
+    onOptionSelect(option);
   };
 
-  /* Close menu on outside click */
+  /* Close when clicking outside */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -62,7 +62,12 @@ const FancyDropdown = ({ onOptionSelect }) => {
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          <path
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -86,13 +91,14 @@ const FancyDropdown = ({ onOptionSelect }) => {
 };
 
 /* === Main component === */
-const App = ({ addOnUISdk, sandboxProxy }) => {
+const App = () => {
   const [text, setText] = useState("");
-  const [audience, setAudience] = useState("");   // selected dropdown value
-  const [result, setResult]   = useState("");      // AI response
+  const [audience, setAudience] = useState("");
+  const [result, setResult] = useState("");
+  const [topAudiences, setTopAudiences] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const [clipboardStatus, setClipboardStatus] = useState(false); // Clipboard status
+  const [isLoading, setIsLoading] = useState(false);
+  const [clipboardStatus, setClipboardStatus] = useState(false);
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
@@ -100,34 +106,41 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
   const handleSubmit = async () => {
     if (!text.trim() || !audience) return;
 
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
     try {
-        const response = await fetch(
-            "https://targettalk.fly.dev/api/v1/ai/generate",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ prompt: text, option: audience })
-            }
-        );
-        const aiText = await response.text();
-        setResult(aiText);
+      const response = await fetch(
+        "https://targettalk.fly.dev/api/v1/ai/generate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: text, option: audience }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`API error ${response.status}`);
+      }
+
+      const data = await response.json();         // NEW: parse JSON
+      setResult(data.response || "");
+      setTopAudiences(data.top_audiences || []);  // NEW: save suggestions
     } catch (err) {
-        console.error(err);
-        setResult("🚨 Error: could not fetch AI response.");
+      console.error(err);
+      setResult("🚨 Error: could not fetch AI response.");
+      setTopAudiences([]);
     } finally {
-        setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
-};
+  };
 
   /* Clipboard handler */
   const handleClipboard = () => {
     navigator.clipboard.writeText(result);
-    setClipboardStatus(true); // Set status to true
-    setTimeout(() => setClipboardStatus(false), 3000); // Revert after 3 seconds
+    setClipboardStatus(true);
+    setTimeout(() => setClipboardStatus(false), 3000);
   };
 
-  /* Highlight-selection demo kept from original */
+  /* Demo highlight function (unchanged) */
   const handleMouseUp = () => {
     const highlighted = window.getSelection().toString();
     if (highlighted) alert("Highlighted text: " + highlighted);
@@ -141,7 +154,9 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
       >
         {/* Heading */}
         <h1 className="heading">TargetTalk</h1>
-        <p className="subheading">Make every word count — for every audience.</p>
+        <p className="subheading">
+          Make every word count — for every audience.
+        </p>
 
         {/* Dark-mode toggle */}
         <DarkModeToggle
@@ -149,9 +164,9 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
           toggleDarkMode={toggleDarkMode}
         />
 
-        {/* User input */}
+        {/* Input box */}
         <div className="textarea-container">
-          <h2 className="subtitle">Input</h2> {/* Added class "subtitle" for consistent styling */}
+          <h2 className="subtitle">Input</h2>
           <textarea
             className="textarea"
             placeholder="What is on your mind today..."
@@ -188,12 +203,12 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
                   r="10"
                   stroke="currentColor"
                   strokeWidth="4"
-                ></circle>
+                />
                 <path
                   className="opacity-75"
                   fill="currentColor"
                   d="M4 12a8 8 0 018-8v8H4z"
-                ></path>
+                />
               </svg>
               Loading...
             </div>
@@ -202,7 +217,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
           )}
         </Button>
 
-        {/* === AI Result section === */}
+        {/* === Result section === */}
         {result && (
           <div className="result-container">
             <h2>Result</h2>
@@ -221,6 +236,18 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
             >
               {clipboardStatus ? "Added to Clipboard!" : "Add to Clipboard"}
             </Button>
+          </div>
+        )}
+
+        {/* === Top Audiences section === */}
+        {topAudiences.length > 0 && (
+          <div className="result-container">
+            <h2 className="subtitle">Top Audiences</h2>
+            <ul className="top-audiences-list">
+              {topAudiences.map((aud) => (
+                <li key={aud}>{aud}</li>
+              ))}
+            </ul>
           </div>
         )}
       </div>

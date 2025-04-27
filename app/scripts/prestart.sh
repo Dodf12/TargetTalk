@@ -3,4 +3,4 @@
 set -e
 set -x
 
-python3 app/prestart.py
+python3 -m app.prestart

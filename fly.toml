@@ -14,5 +14,9 @@ cpu_kind = "shared"
 cpus = 1
 memory = "1gb"
 
+[mounts]
+source = "targettalk_data"
+destination = "/data"
+
 [env]
   PROJECT_NAME = "TargetTalkBackend"

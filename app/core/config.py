@@ -12,7 +12,7 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = "TargetTalkBackend"
     GEMINI_API_KEY: str
-    DB_PATH: str = "/data/targettalk.db"
+    DB_PATH: str = "/data/tt_data.db"
 
 
 settings = Settings()

@@ -91,6 +91,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
   const [audience, setAudience] = useState("");   // selected dropdown value
   const [result, setResult]   = useState("");      // AI response
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
@@ -98,6 +99,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
   const handleSubmit = async () => {
     if (!text.trim() || !audience) return;
 
+    setIsLoading(true); // Start loading
     try {
         const response = await fetch(
             "https://targettalk.fly.dev/api/v1/ai/generate",
@@ -112,6 +114,8 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
     } catch (err) {
         console.error(err);
         setResult("🚨 Error: could not fetch AI response.");
+    } finally {
+        setIsLoading(false); // Stop loading
     }
 };
 
@@ -139,6 +143,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
 
         {/* User input */}
         <div className="textarea-container">
+          <h2 className="subtitle">Input</h2> {/* Added class "subtitle" for consistent styling */}
           <textarea
             className="textarea"
             placeholder="What is on your mind today..."
@@ -158,9 +163,35 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
           size="m"
           onClick={handleSubmit}
           className="action-button"
-          disabled={!text.trim() || !audience}
+          disabled={!text.trim() || !audience || isLoading}
         >
-          Submit
+          {isLoading ? (
+            <div className="spinner">
+              <svg
+                className="spinner-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+              Loading...
+            </div>
+          ) : (
+            "Submit"
+          )}
         </Button>
 
         {/* === AI Result section === */}

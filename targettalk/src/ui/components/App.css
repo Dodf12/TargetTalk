@@ -23,6 +23,12 @@
     margin: 0 0 0.5rem 0;    /* tighter margin below slogan */
 }
 
+.subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0; /* Add a small bottom margin */
+}
+
 /* === Dark Mode Toggle === */
 .dark-mode-toggle {
   display: flex;
@@ -70,7 +76,7 @@
 .result-container {          /* keep widths aligned */
     position: relative;
     width: 100%;
-    max-width: 24rem;
+    max-width: 22rem; /* Reduced from 24rem to 22rem for a slightly narrower width */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,6 +118,8 @@
 .action-button {
     border-radius: 9999px;
     margin-top: 0.75rem;
+    padding: 0.75rem 1.5rem; /* Increase padding for a bigger button */
+    font-size: 1rem;        /* Increase font size */
 }
 
 /* === Dropdown === */
@@ -172,7 +180,7 @@
     width: 100%;
     text-align: left;
     padding: 0.5rem 1rem;
-    color: #4b5563;
+    color: #000000; /* Default color for light mode */
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -183,6 +191,12 @@
 }
 
 .dropdown-option:hover { background-color: #f3f4f6; color: #000000; }
+
+.dark-mode .dropdown-option {
+    color: #ffffff; /* Text color for dark mode */
+}
+
+.dark-mode .dropdown-option:hover { background-color: #444; color: #ffffff; }
 
 /* === Result Section === */
 .result-container { margin-top: 0.75rem; gap: 0.25rem; }
@@ -216,3 +230,25 @@ html, body { margin: 0; padding: 0; height: 100%; background-color: #ffffff; tra
 }
 
 .dark-mode .subheading { color: #cccccc; }
+
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

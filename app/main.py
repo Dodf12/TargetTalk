@@ -11,19 +11,11 @@ app = FastAPI(
     redoc_url=f"{settings.API_V1_STR}/redoc",
 )
 
-@app.options("/{full_path:path}")
-async def preflight_handler(full_path: str):
-    response = Response(status_code=204)
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "*"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    return response
-
 # CORS, this is important!
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://localhost:5241",
         "https://express.adobe.com",
         "https://new.express.adobe.com"
     ],

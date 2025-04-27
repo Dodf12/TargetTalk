@@ -71,7 +71,7 @@ const FancyDropdown = () => {
       </div>
 
       {isOpen && (
-        <div className="dropdown-menu">
+        <div className={`dropdown-menu ${isOpen ? "show" : ""}`}>
           <div className="dropdown-options">
             {options.map((option, index) => (
               <button

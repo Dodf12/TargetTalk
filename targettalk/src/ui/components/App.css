@@ -3,25 +3,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;            /* slightly tighter spacing */
     padding: 1.5rem;
-    min-height: 100vh; /* Ensure full screen height */
+    min-height: 100vh;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* === Heading Styles === */
 .heading {
-    font-size: 1.875rem; /* text-3xl */
+    font-size: 1.875rem;     /* text-3xl */
     font-weight: bold;
-    margin-bottom: 0.25rem; /* smaller space below title */
+    margin-bottom: 0.25rem;
 }
 
 .subheading {
     text-align: center;
-    font-size: 0.875rem; /* text-sm */
-    color: #4b5563; /* text-gray-600 */
-    margin-top: 0;
-    margin-bottom: 0.5rem; /* tighter margin below slogan */
+    font-size: 0.875rem;     /* text-sm */
+    color: #4b5563;
+    margin: 0 0 0.5rem 0;    /* tighter margin below slogan */
 }
 
 /* === Dark Mode Toggle === */
@@ -29,7 +28,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin: 0.5rem 0; /* tighter top/bottom margin */
+  margin: 0.5rem 0;
 }
 
 .dark-mode-text {
@@ -47,9 +46,7 @@
   transition: background-color 0.5s ease;
 }
 
-.toggle-switch:hover {
-  background-color: #d6d6d6;
-}
+.toggle-switch:hover { background-color: #d6d6d6; }
 
 .toggle-thumb {
   width: 16px;
@@ -65,23 +62,18 @@
   transition: left 0.5s ease, background-color 0.5s ease;
 }
 
-.toggle-thumb-light {
-  left: 2px;
-}
+.toggle-thumb-light { left: 2px; }
+.toggle-thumb-dark  { left: 22px; }
 
-.toggle-thumb-dark {
-  left: 22px;
-}
-
-/* === Textarea === */
-.textarea-container {
+/* === Textarea (shared) === */
+.textarea-container,
+.result-container {          /* keep widths aligned */
     position: relative;
     width: 100%;
     max-width: 24rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-top: 0.5rem; /* reduced space above textarea */
 }
 
 .textarea {
@@ -107,27 +99,25 @@
 }
 
 .textarea:focus {
-    outline: none;
     box-shadow: 0 0 0 2px #6366f1;
+}
+
+/* read-only textarea (Result) */
+.textarea[readonly] {
+    cursor: default;
+    background-color: #f9fafb;
 }
 
 /* === Submit Button === */
 .action-button {
     border-radius: 9999px;
-    margin-top: 1rem; /* reduced space */
+    margin-top: 0.75rem;
 }
 
 /* === Dropdown === */
-#DropdownContainer {
-    text-align: center;
-    margin-top: 0.75rem; /* Reduced space */
-}
+#DropdownContainer { text-align: center; margin-top: 0.5rem; }
 
-.dropdown-container {
-    position: relative;
-    display: inline-block;
-    text-align: left;
-}
+.dropdown-container { position: relative; display: inline-block; }
 
 .dropdown-button {
     display: inline-flex;
@@ -144,9 +134,7 @@
     transition: all 0.5s;
 }
 
-.dropdown-button:hover {
-    background-color: #f3f4f6;
-}
+.dropdown-button:hover { background-color: #f3f4f6; }
 
 .dropdown-icon {
     width: 1.25rem;
@@ -177,9 +165,7 @@
     transform: scaleY(1);
 }
 
-.dropdown-options {
-    padding: 0.25rem 0;
-}
+.dropdown-options { padding: 0.25rem 0; }
 
 .dropdown-option {
     display: block;
@@ -196,42 +182,37 @@
     border-radius: 1rem;
 }
 
-.dropdown-option:hover {
-    background-color: #f3f4f6;
-    color: #000000;
+.dropdown-option:hover { background-color: #f3f4f6; color: #000000; }
+
+/* === Result Section === */
+.result-container { margin-top: 0.75rem; gap: 0.25rem; }
+
+.result-container h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
 }
 
 /* === Dark Mode Section === */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #ffffff; /* light mode background */
-    transition: background-color 0.5s ease, color 0.5s ease;
-}
+html, body { margin: 0; padding: 0; height: 100%; background-color: #ffffff; transition: background-color 0.5s ease, color 0.5s ease; }
 
 .dark-mode {
-    min-height: 100vh; /* full screen */
-    background-color: #1e1e2f; /* dark background */
+    background-color: #1e1e2f;
     color: #f0f0f0;
 }
 
-.dark-mode .textarea {
+.dark-mode .textarea,
+.dark-mode .textarea[readonly] {
     background-color: #2e2e3f;
     color: #f0f0f0;
     border: 1px solid #555;
 }
 
-.dark-mode .dropdown-button {
-    background-color: #2e2e3f;
-    color: #f0f0f0;
-    border: 1px solid #555;
-}
-
+.dark-mode .dropdown-button,
 .dark-mode .dropdown-menu {
     background-color: #2e2e3f;
+    color: #f0f0f0;
+    border: 1px solid #555;
 }
 
-.dark-mode .subheading {
-    color: #cccccc;
-}
+.dark-mode .subheading { color: #cccccc; }

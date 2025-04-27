@@ -19,7 +19,7 @@ const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => (
           isDarkMode ? "toggle-thumb-dark" : "toggle-thumb-light"
         }`}
       >
-        {isDarkMode ? "🌙" : "☀️"}
+        {isDarkMode ? "🌘" : "🌕"}
       </div>
     </div>
   </div>
@@ -92,6 +92,7 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
   const [result, setResult]   = useState("");      // AI response
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [clipboardStatus, setClipboardStatus] = useState(false); // Clipboard status
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
@@ -118,6 +119,13 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
         setIsLoading(false); // Stop loading
     }
 };
+
+  /* Clipboard handler */
+  const handleClipboard = () => {
+    navigator.clipboard.writeText(result);
+    setClipboardStatus(true); // Set status to true
+    setTimeout(() => setClipboardStatus(false), 3000); // Revert after 3 seconds
+  };
 
   /* Highlight-selection demo kept from original */
   const handleMouseUp = () => {
@@ -204,6 +212,15 @@ const App = ({ addOnUISdk, sandboxProxy }) => {
               readOnly
               style={{ height: "8rem" }}
             />
+            <Button
+              size="m"
+              onClick={handleClipboard}
+              className={`action-button ${
+                clipboardStatus ? "clipboard-success" : ""
+              }`}
+            >
+              {clipboardStatus ? "Added to Clipboard!" : "Add to Clipboard"}
+            </Button>
           </div>
         )}
       </div>

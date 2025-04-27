@@ -120,6 +120,7 @@
     margin-top: 0.75rem;
     padding: 0.75rem 1.5rem; /* Increase padding for a bigger button */
     font-size: 1rem;        /* Increase font size */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }
 
 /* === Dropdown === */
@@ -251,4 +252,10 @@ html, body { margin: 0; padding: 0; height: 100%; background-color: #ffffff; tra
     100% {
         transform: rotate(360deg);
     }
+}
+
+.clipboard-success {
+  background-color: #22c55e; /* Modern green */
+  color: #ffffff;
+  transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }

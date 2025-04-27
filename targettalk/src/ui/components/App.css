@@ -1,146 +1,227 @@
-/* Container styles */
+/* === Main Layout === */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem; /* Increased gap for better spacing */
+    gap: 1rem;
     padding: 1.5rem;
+    min-height: 100vh; /* Ensure full screen height */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
-  
-/* Heading styles */
+
+/* === Heading Styles === */
 .heading {
     font-size: 1.875rem; /* text-3xl */
     font-weight: bold;
-    margin-bottom: 0.5rem; /* Adjusted spacing */
+    margin-bottom: 0.25rem; /* smaller space below title */
 }
-  
-/* Subheading styles */
+
 .subheading {
     text-align: center;
     font-size: 0.875rem; /* text-sm */
     color: #4b5563; /* text-gray-600 */
     margin-top: 0;
+    margin-bottom: 0.5rem; /* tighter margin below slogan */
 }
-  
-/* Textarea container */
+
+/* === Dark Mode Toggle === */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0; /* tighter top/bottom margin */
+}
+
+.dark-mode-text {
+  font-size: 0.875rem;
+  color: inherit;
+}
+
+.toggle-switch {
+  width: 40px;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch:hover {
+  background-color: #d6d6d6;
+}
+
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  position: absolute;
+  top: 2px;
+  transition: left 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle-thumb-light {
+  left: 2px;
+}
+
+.toggle-thumb-dark {
+  left: 22px;
+}
+
+/* === Textarea === */
 .textarea-container {
     position: relative;
     width: 100%;
     max-width: 24rem;
     display: flex;
-    justify-content: center; /* Center the textarea */
+    justify-content: center;
     align-items: center;
+    margin-top: 0.5rem; /* reduced space above textarea */
 }
-  
-/* Textarea styles */
+
 .textarea {
     width: 100%;
     height: 10rem;
-    resize: vertical; /* Allow only vertical resizing */
+    resize: vertical;
     border-radius: 0.5rem;
-    border: 1px solid #d1d5db; /* border-gray-300 */
-    background-color: #ffffff; /* bg-white */
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
     padding: 0.5rem 0.75rem;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* shadow-sm */
-    color: #4b5563; /* text-gray-700 */
-    font-size: 0.875rem; /* text-sm */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #4b5563;
+    font-size: 0.875rem;
     outline: none;
 }
 
 .textarea::placeholder {
-    color: #9ca3af; /* placeholder-gray-400 */
-    font-style: italic; /* Make the placeholder text italic */
-    font-weight: 300; /* Use a lighter font weight */
-    opacity: 0.8; /* Slightly reduce opacity for a subtle effect */
+    color: #9ca3af;
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0.8;
 }
 
 .textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #6366f1; /* focus:ring-indigo-500 */
+    box-shadow: 0 0 0 2px #6366f1;
 }
 
-/* Button styles */
+/* === Submit Button === */
 .action-button {
-    border-radius: 9999px; /* rounded-full */
-    margin-top: 1rem; /* Add spacing above the button */
+    border-radius: 9999px;
+    margin-top: 1rem; /* reduced space */
 }
 
-/* Dropdown container */
+/* === Dropdown === */
 #DropdownContainer {
-    text-align: center; /* Center-align the text */
-    margin-top: 1rem; /* Add spacing above the dropdown container */
+    text-align: center;
+    margin-top: 0.75rem; /* Reduced space */
 }
 
-/* Dropdown container styles */
 .dropdown-container {
     position: relative;
     display: inline-block;
     text-align: left;
 }
 
-/* Dropdown button */
 .dropdown-button {
     display: inline-flex;
     justify-content: space-between;
-    align-items: center; /* Ensure vertical alignment of text and icon */
-    width: 14rem; /* w-56 */
-    border-radius: 1rem; /* rounded-2xl */
-    border: 1px solid #d1d5db; /* border-gray-300 */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* shadow-md */
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    background-color: #ffffff; /* bg-white */
-    color: #4b5563; /* text-gray-700 */
-    font-size: 0.875rem; /* text-sm */
-    transition: all 0.2s; /* transition-all duration-200 */
+    align-items: center;
+    width: 14rem;
+    border-radius: 1rem;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;
+    color: #4b5563;
+    font-size: 0.875rem;
+    transition: all 0.2s;
 }
 
 .dropdown-button:hover {
-    background-color: #f3f4f6; /* hover:bg-gray-100 */
+    background-color: #f3f4f6;
 }
 
-/* Dropdown icon */
 .dropdown-icon {
-    width: 1.25rem; /* w-5 */
-    height: 1.25rem; /* h-5 */
-    margin-left: 0.5rem; /* ml-2 */
-    margin-right: -0.25rem; /* -mr-1 */
-    color: #9ca3af; /* text-gray-400 */
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: 0.5rem;
+    margin-right: -0.25rem;
+    color: #9ca3af;
 }
 
-/* Dropdown menu */
 .dropdown-menu {
     position: absolute;
-    top: 2.5rem; /* mt-2 */
+    top: 2.5rem;
     right: 0;
-    width: 14rem; /* w-56 */
-    border-radius: 1rem; /* rounded-2xl */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
-    background-color: #ffffff; /* bg-white */
-    border: 1px solid rgba(0, 0, 0, 0.05); /* ring-1 ring-black ring-opacity-5 */
+    width: 14rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     z-index: 10;
 }
 
-/* Dropdown options */
 .dropdown-options {
-    padding: 0.25rem 0; /* py-1 */
+    padding: 0.25rem 0;
 }
 
 .dropdown-option {
     display: block;
     width: 100%;
     text-align: left;
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    color: #4b5563; /* text-gray-700 */
+    padding: 0.5rem 1rem;
+    color: #4b5563;
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: 0.875rem; /* text-sm */
-    line-height: 1.5rem; /* Ensure consistent vertical alignment */
-    transition: all 0.15s; /* transition-all duration-150 */
-    border-radius: 1rem; /* rounded-2xl */
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    transition: all 0.15s;
+    border-radius: 1rem;
 }
 
 .dropdown-option:hover {
-    background-color: #f3f4f6; /* hover:bg-gray-100 */
-    color: #000000; /* hover:text-black */
+    background-color: #f3f4f6;
+    color: #000000;
+}
+
+/* === Dark Mode Section === */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #ffffff; /* light mode background */
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.dark-mode {
+    min-height: 100vh; /* full screen */
+    background-color: #1e1e2f; /* dark background */
+    color: #f0f0f0;
+}
+
+.dark-mode .textarea {
+    background-color: #2e2e3f;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+.dark-mode .dropdown-button {
+    background-color: #2e2e3f;
+    color: #f0f0f0;
+    border: 1px solid #555;
+}
+
+.dark-mode .dropdown-menu {
+    background-color: #2e2e3f;
+}
+
+.dark-mode .subheading {
+    color: #cccccc;
 }

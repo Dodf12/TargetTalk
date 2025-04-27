@@ -13,3 +13,4 @@ starlette
 typing_extensions
 uvicorn
 google-generativeai==0.3.2
+upstash_redis

@@ -14,9 +14,8 @@ class RequestData(BaseModel):
 async def generate(data: RequestData):
     response = chat_with_gemini(data.prompt, data.option)
     save_audience(data.option)
-    top_audiences = get_top_audiences(limit=3)
     
     return {
         "response": response,
-        "top_audiences": top_audiences
+        "top_audiences": get_top_audiences()
     }

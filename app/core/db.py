@@ -1,27 +1,19 @@
-import sqlite3
 from .config import settings
+from upstash_redis import Redis
+
+redis = Redis(url=settings.UPSTASH_REDIS_REST_URL, token=settings.UPSTASH_REDIS_REST_TOKEN)
 
 def save_audience(audience: str):
-    conn = sqlite3.connect(settings.DB_PATH)
-    c = conn.cursor()
-    c.execute(
-        "INSERT INTO audience_logs (audience) VALUES (?)",
-        (audience,)
-    )
-    conn.commit()
-    conn.close()
+    redis.zincrby("audiences", increment=1, member=audience)
 
-def get_top_audiences(limit=3):
-    conn = sqlite3.connect(settings.DB_PATH)
-    c = conn.cursor()
-    c.execute('''
-    SELECT audience, COUNT(*) as total
-    FROM audience_logs
-    GROUP BY audience
-    ORDER BY total DESC
-    LIMIT ?
-    ''', (limit,))
-    results = c.fetchall()
-    conn.close()
-    return results
+def get_top_audiences():
+    results = redis.zrevrange("audiences", 0, 4, withscores=True)
+    
+    if not results:
+        return []
+    
+    top_score = results[0][1]
+    top_audiences = [audience for audience, score in results if score == top_score]
+    
+    return top_audiences
 

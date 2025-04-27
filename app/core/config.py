@@ -12,7 +12,8 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = "TargetTalkBackend"
     GEMINI_API_KEY: str
-    DB_PATH: str = "/data/tt_data.db"
+    UPSTASH_REDIS_REST_URL: str = "https://massive-kangaroo-29407.upstash.io"
+    UPSTASH_REDIS_REST_TOKEN: str
 
 
 settings = Settings()

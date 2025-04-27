@@ -12,6 +12,7 @@ class Settings(BaseSettings):
 
     PROJECT_NAME: str = "TargetTalkBackend"
     GEMINI_API_KEY: str
+    ADOBE_EXPRESS_URL: str = "https://express.adobe.com"
 
 
 settings = Settings()

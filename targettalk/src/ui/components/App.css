@@ -1,82 +1,86 @@
-/* === Main Layout === */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;            /* slightly tighter spacing */
+    gap: 0.75rem;
     padding: 1.5rem;
     min-height: 100vh;
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* === Heading Styles === */
 .heading {
-    font-size: 1.875rem;     /* text-3xl */
+    font-size: 1.875rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
 }
 
 .subheading {
     text-align: center;
-    font-size: 0.875rem;     /* text-sm */
+    font-size: 0.875rem;
     color: #4b5563;
-    margin: 0 0 0.5rem 0;    /* tighter margin below slogan */
+    margin: 0 0 0.5rem 0;
+    font-style: italic;
 }
 
 .subtitle {
     font-size: 1rem;
     font-weight: 600;
-    margin: 0 0 0.25rem 0;   /* Add a small bottom margin */
+    margin: 0 0 0.25rem 0;
 }
 
-/* === Dark Mode Toggle === */
 .dark-mode-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
 }
 
 .dark-mode-text {
-  font-size: 0.875rem;
-  color: inherit;
+    font-size: 0.875rem;
+    color: inherit;
 }
 
 .toggle-switch {
-  width: 40px;
-  height: 20px;
-  background-color: #e0e0e0;
-  border-radius: 9999px;
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.5s ease;
+    width: 40px;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 9999px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
 }
 
-.toggle-switch:hover { background-color: #d6d6d6; }
+.toggle-switch:hover {
+    background-color: #d6d6d6;
+}
 
 .toggle-thumb {
-  width: 16px;
-  height: 16px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  position: absolute;
-  top: 2px;
-  transition: left 0.5s ease, background-color 0.5s ease;
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    position: absolute;
+    top: 2px;
+    transition: left 0.5s ease, background-color 0.5s ease;
 }
 
-.toggle-thumb-light { left: 2px; }
-.toggle-thumb-dark  { left: 22px; }
+.toggle-thumb-light {
+    left: 2px;
+}
 
-/* === Textarea (shared) === */
+.toggle-thumb-dark {
+    left: 22px;
+}
+
 .textarea-container,
-.result-container {          /* keep widths aligned */
+.result-container {
     position: relative;
     width: 100%;
-    max-width: 22rem;        /* slightly narrower */
+    max-width: 22rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,13 +112,11 @@
     box-shadow: 0 0 0 2px #6366f1;
 }
 
-/* read-only textarea (Result) */
 .textarea[readonly] {
     cursor: default;
     background-color: #f9fafb;
 }
 
-/* === Submit / Clipboard Buttons === */
 .action-button {
     border-radius: 9999px;
     margin-top: 0.75rem;
@@ -124,14 +126,19 @@
 }
 
 .clipboard-success {
-  background-color: #22c55e; /* green */
-  color: #ffffff;
+    background-color: #22c55e;
+    color: #ffffff;
 }
 
-/* === Dropdown === */
-#DropdownContainer { text-align: center; margin-top: 0.5rem; }
+#DropdownContainer {
+    text-align: center;
+    margin-top: 0.5rem;
+}
 
-.dropdown-container { position: relative; display: inline-block; }
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
 
 .dropdown-button {
     display: inline-flex;
@@ -148,7 +155,9 @@
     transition: all 0.5s;
 }
 
-.dropdown-button:hover { background-color: #f3f4f6; }
+.dropdown-button:hover {
+    background-color: #f3f4f6;
+}
 
 .dropdown-icon {
     width: 1.25rem;
@@ -179,7 +188,9 @@
     transform: scaleY(1);
 }
 
-.dropdown-options { padding: 0.25rem 0; }
+.dropdown-options {
+    padding: 0.25rem 0;
+}
 
 .dropdown-option {
     display: block;
@@ -196,15 +207,18 @@
     border-radius: 1rem;
 }
 
-.dropdown-option:hover { background-color: #f3f4f6; }
+.dropdown-option:hover {
+    background-color: #f3f4f6;
+}
 
 .dark-mode .dropdown-option {
     color: #ffffff;
 }
 
-.dark-mode .dropdown-option:hover { background-color: #444; }
+.dark-mode .dropdown-option:hover {
+    background-color: #444;
+}
 
-/* === Result Section === */
 .result-container {
     margin-top: 0.75rem;
     gap: 0.25rem;
@@ -216,7 +230,6 @@
     margin: 0;
 }
 
-/* === Spinner === */
 .spinner {
     display: flex;
     align-items: center;
@@ -231,12 +244,16 @@
 }
 
 @keyframes spin {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-/* === Dark Mode Globals === */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -263,10 +280,10 @@ html, body {
     border: 1px solid #555;
 }
 
-.dark-mode .subheading { color: #cccccc; }
+.dark-mode .subheading {
+    color: #cccccc;
+}
 
-/* -------------------------------------------------- */
-/* === NEW: Top-Audiences List ====================== */
 .top-audiences {
     margin-top: 0.5rem;
     text-align: center;
@@ -289,10 +306,10 @@ html, body {
     line-height: 1.25rem;
 }
 
-/* Dark-mode overrides */
-.dark-mode .top-audiences ul { color: #f0f0f0; }
+.dark-mode .top-audiences ul {
+    color: #f0f0f0;
+}
 
-/* === Top Audiences Section === */
 .top-audiences-container {
     margin-top: 1rem;
     padding: 1rem;
@@ -312,23 +329,22 @@ html, body {
     margin: 0;
     padding: 0;
     list-style: none;
-    text-align: left; /* Align items to the left for consistency */
-    width: 100%; /* Match the width of the result container */
+    text-align: left;
+    width: 100%;
 }
 
 .top-audiences-list li {
     font-size: 0.875rem;
     line-height: 1.5rem;
     color: #4b5563;
-    padding: 0.5rem 0.75rem; /* Add padding for better spacing */
-    border-bottom: 1px solid #e5e7eb; /* Add a subtle divider */
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .top-audiences-list li:last-child {
-    border-bottom: none; /* Remove the divider for the last item */
+    border-bottom: none;
 }
 
-/* Dark-mode overrides */
 .dark-mode .top-audiences-container {
     background-color: #2e2e3f;
     color: #f0f0f0;
@@ -336,5 +352,5 @@ html, body {
 
 .dark-mode .top-audiences-list li {
     color: #f0f0f0;
-    border-bottom: 1px solid #444; /* Adjust divider color for dark mode */
+    border-bottom: 1px solid #444;
 }

@@ -1,4 +1,3 @@
-// App.jsx
 import "@spectrum-web-components/theme/express/scale-medium.js";
 import "@spectrum-web-components/theme/express/theme-light.js";
 
@@ -7,7 +6,6 @@ import { Theme } from "@swc-react/theme";
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 
-/* === Dark-mode toggle === */
 const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => (
   <div className="dark-mode-toggle">
     <span className="dark-mode-text">
@@ -25,10 +23,9 @@ const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => (
   </div>
 );
 
-/* === Audience dropdown === */
 const FancyDropdown = ({ onOptionSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Select an option");
+  const [selectedOption, setSelectedOption] = useState("Choose an Option");
   const dropdownRef = useRef(null);
 
   const options = ["Gen Z", "Gamers", "Executive", "Parents", "Students"];
@@ -41,7 +38,6 @@ const FancyDropdown = ({ onOptionSelect }) => {
     onOptionSelect(option);
   };
 
-  /* Close when clicking outside */
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -90,7 +86,6 @@ const FancyDropdown = ({ onOptionSelect }) => {
   );
 };
 
-/* === Main component === */
 const App = () => {
   const [text, setText] = useState("");
   const [audience, setAudience] = useState("");
@@ -102,7 +97,6 @@ const App = () => {
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
-  /* --- Submit handler --- */
   const handleSubmit = async () => {
     if (!text.trim() || !audience) return;
 
@@ -121,9 +115,9 @@ const App = () => {
         throw new Error(`API error ${response.status}`);
       }
 
-      const data = await response.json();         // NEW: parse JSON
+      const data = await response.json();
       setResult(data.response || "");
-      setTopAudiences(data.top_audiences || []);  // NEW: save suggestions
+      setTopAudiences(data.top_audiences || []);
     } catch (err) {
       console.error(err);
       setResult("🚨 Error: could not fetch AI response.");
@@ -133,14 +127,12 @@ const App = () => {
     }
   };
 
-  /* Clipboard handler */
   const handleClipboard = () => {
     navigator.clipboard.writeText(result);
     setClipboardStatus(true);
     setTimeout(() => setClipboardStatus(false), 3000);
   };
 
-  /* Demo highlight function (unchanged) */
   const handleMouseUp = () => {
     const highlighted = window.getSelection().toString();
     if (highlighted) alert("Highlighted text: " + highlighted);
@@ -152,19 +144,16 @@ const App = () => {
         className={`container ${isDarkMode ? "dark-mode" : ""}`}
         onMouseUp={handleMouseUp}
       >
-        {/* Heading */}
         <h1 className="heading">TargetTalk</h1>
         <p className="subheading">
-          Make every word count — for every audience.
+          Speak to the World, One Word at a Time.
         </p>
 
-        {/* Dark-mode toggle */}
         <DarkModeToggle
           isDarkMode={isDarkMode}
           toggleDarkMode={toggleDarkMode}
         />
 
-        {/* Input box */}
         <div className="textarea-container">
           <h2 className="subtitle">Input</h2>
           <textarea
@@ -175,13 +164,11 @@ const App = () => {
           />
         </div>
 
-        {/* Audience dropdown */}
         <div id="DropdownContainer">
           <h2>Select Your Audience</h2>
           <FancyDropdown onOptionSelect={setAudience} />
         </div>
 
-        {/* Submit button */}
         <Button
           size="m"
           onClick={handleSubmit}
@@ -217,7 +204,6 @@ const App = () => {
           )}
         </Button>
 
-        {/* === Result section === */}
         {result && (
           <div className="result-container">
             <h2>Result</h2>
@@ -239,7 +225,6 @@ const App = () => {
           </div>
         )}
 
-        {/* === Top Audiences section === */}
         {topAudiences.length > 0 && (
           <div className="result-container">
             <h2 className="subtitle">Top Audiences</h2>

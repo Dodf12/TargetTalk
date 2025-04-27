@@ -16,6 +16,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://localhost:5241",
+        "http://localhost:5241",
         "https://express.adobe.com",
         "https://new.express.adobe.com"
     ],

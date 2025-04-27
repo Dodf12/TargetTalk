@@ -13,7 +13,7 @@ app = FastAPI(
 # CORS, this is important!
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ADOBE_EXPRESS_URL,
+    allow_origin_regex=".*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
